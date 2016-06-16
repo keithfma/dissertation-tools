@@ -6,10 +6,10 @@ function spec = journal_format_spec(journal_name, spec_name)
 % Arguments:
 %
 % journal_name = String. Journal for which formatting specifications are
-%   defined, e.g. 'geology'. To list all options, use journal_name == 'list'.
+%   defined, e.g. 'geology'. Omit to list all defined journals
 %
 % spec_name = String. Desired formatting specification, e.g.
-%   'single_column_width'. To list all available options, use spec_name == 'list'
+%   'single_column_width'. Omit to list all defined options for a given journal
 %
 % %
 
@@ -32,7 +32,7 @@ journal = containers.Map('KeyType','char','ValueType','any');
 journal('geology') = geology;
 
 % option: list defined journals 
-if strcmp(journal_name, 'list')
+if nargin == 0
     names = keys(journal);
     fprintf('\n%s: List of all defined journals\n', mfilename);
     for ii = 1:length(names)
@@ -45,12 +45,12 @@ end
 % validate journal name
 if ~ismember(journal_name, keys(journal)) 
     error(['Invalid journal name "%s"\n', ...'
-            'Use journal_name == "list" to see defined journal names.'], ...
+            'Run journal_format_spec() to list defined journal names.'], ...
             journal_name); 
 end
 
 % option: list all defined specifications for a given journal
-if strcmp(spec_name, 'list')
+if nargin == 1
     names = keys(journal(journal_name));
     fprintf('\n%s: List of all defined specifications for journal "%s"\n', ...
         mfilename, journal_name);
@@ -64,8 +64,8 @@ end
 % validate specification name
 if ~ismember(spec_name, keys(journal(journal_name))) 
     error(['Invalid specification name "%s" for journal name "%s"\n', ...
-           'Use spec_name == "list" to see defined specification names.'], ...
-           spec_name, journal_name); 
+           'Run journal_format_spec("%s") to see defined specification names.'], ...
+           spec_name, journal_name, journal_name); 
 end
 
 % return specification value
