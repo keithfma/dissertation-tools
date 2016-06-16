@@ -26,7 +26,7 @@ geology('font_size_minimum') = 7;
 geology('font_size_maximum') = 12;
 geology('line_width_minimum') = 1;
 geology('line_width_maximum') = 2;
-geology('font_name') = 'Arial';
+geology('font_name') = 'Helvetica';
 
 journal = containers.Map('KeyType','char','ValueType','any');
 journal('geology') = geology;
